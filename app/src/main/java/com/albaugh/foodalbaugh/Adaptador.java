@@ -37,7 +37,7 @@ public class Adaptador extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;//return dias.length;
+        return 1;//return dias.length;
     }
 
     @Override
