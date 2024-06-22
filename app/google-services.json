@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "431948760148",
+    "project_id": "foodalbaugh",
+    "storage_bucket": "foodalbaugh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431948760148:android:cfd45f9e614ec42cc399c1",
+        "android_client_info": {
+          "package_name": "com.albaugh.foodalbaugh"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6DFZ3C_1LHjLQPKc0-SnAilL20EXjKaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
