@@ -55,15 +55,11 @@ public class vistaPedido extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("Mensaje/rotulo",snapshot.getValue().toString());
-                Log.d("Mensaje",snapshot.getChildren().toString());
+
                 itemList.clear();
                 for (DataSnapshot snaps : snapshot.getChildren()) {
                     PedidosItems item = snaps.getValue(PedidosItems.class);
                     item.setDia(snaps.getKey().toString());
-
-                    Log.d("Mensaje/dia",snaps.getKey().toString());
-                    Log.d("Mensaje",item.Opcion.toString());
                     itemList.add(item);
                 }
                 adapter.notifyDataSetChanged();
