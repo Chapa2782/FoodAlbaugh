@@ -27,6 +27,7 @@ import com.albaugh.foodalbaugh.Datos;
 
 
 public class MainActivity extends AppCompatActivity {
+    //Declaracion de elementos
     public Button Ingresar;
     public EditText DNI;
     public EditText Pass;
