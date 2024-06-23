@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -20,11 +21,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class vistaPedido extends AppCompatActivity {
     Button btnModicar,btnOK;
     ListView Lista;
     FirebaseDatabase database;
     DatabaseReference ref;
+    private ArrayList<PedidosItems> itemList;
+    private PedidosAdapter adapter;
 
 
     @Override
@@ -40,8 +45,9 @@ public class vistaPedido extends AppCompatActivity {
         btnModicar = findViewById(R.id.btnModicar);
         btnOK = findViewById(R.id.btnOK);
         Lista = findViewById(R.id.ListaPedidos);
-        String d[] = {"Dia1","Dia2","Dia3"};
-        String c[] = {"Asado","Carne","Pastel"};
+        itemList = new ArrayList<>();
+        adapter = new PedidosAdapter(this,itemList);
+        Lista.setAdapter(adapter);
 
         database = FirebaseDatabase.getInstance();
 
@@ -49,15 +55,18 @@ public class vistaPedido extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                try {
-                    Log.d("Mensaje/Datos", snapshot.getValue().toString());
-                    String d[] = {""};
-                    String c[] = {""};
+                Log.d("Mensaje/rotulo",snapshot.getValue().toString());
+                Log.d("Mensaje",snapshot.getChildren().toString());
+                itemList.clear();
+                for (DataSnapshot snaps : snapshot.getChildren()) {
+                    PedidosItems item = snaps.getValue(PedidosItems.class);
+                    item.setDia(snaps.getKey().toString());
 
-                    Lista.setAdapter(new Adaptador(vistaPedido.this,snapshot.getValue().toString(),""));
-                }catch (Exception e){
-                    Log.d("Mensaje",e.toString());
+                    Log.d("Mensaje/dia",snaps.getKey().toString());
+                    Log.d("Mensaje",item.Opcion.toString());
+                    itemList.add(item);
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
