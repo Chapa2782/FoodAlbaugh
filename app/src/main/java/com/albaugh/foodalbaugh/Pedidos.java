@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,10 +39,9 @@ public class Pedidos extends AppCompatActivity {
     Button btnAtras,btnSiguiente,btnPedir,btnFinalizar;
     DatabaseReference ref,refOp1,refOp2,refOp3,refInicio,refFinal;
     FirebaseDatabase database;
+    ImageView imagen;
     String vInicio,vFinal,DelAl;
-    String valor = "";
-    String Desc1,Desc2,Desc3 = "";
-    int Pos = 1;
+     int Pos = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +66,7 @@ public class Pedidos extends AppCompatActivity {
         txtSemana = findViewById(R.id.txtSemana);
         txtDesc = findViewById(R.id.txtDesc);
         txtDia = findViewById(R.id.txtDia);
+        imagen = findViewById(R.id.imagen);
 
 
         refOp1 = database.getReference("Dia1/op1");
@@ -111,6 +112,8 @@ public class Pedidos extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 txtDesc.setText(snapshot.getValue().toString());
+                colocarImagen();
+
             }
 
             @Override
@@ -179,6 +182,7 @@ public class Pedidos extends AppCompatActivity {
             }
         });
 
+
         Op1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -188,6 +192,7 @@ public class Pedidos extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             try {
                                 txtDesc.setText(snapshot.getValue().toString());
+                                colocarImagen();
                                 btnPedir.setEnabled(true);
                             }catch(Exception e){
                                 txtDesc.setText("NULL");
@@ -213,6 +218,7 @@ public class Pedidos extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             try {
                                 txtDesc.setText(snapshot.getValue().toString());
+                                colocarImagen();
                                 btnPedir.setEnabled(true);
                             }catch(Exception e){
                                 txtDesc.setText("NULL");
@@ -237,6 +243,7 @@ public class Pedidos extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             txtDesc.setText(snapshot.getValue().toString());
+                            colocarImagen();
                         }
 
                         @Override
@@ -250,7 +257,7 @@ public class Pedidos extends AppCompatActivity {
         btnPedir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ref = database.getReference("Pedidos/semana/"+DelAl+"/"+Datos.DNI+"/"+getFecha(Pos)+"/");
+                ref = database.getReference("Pedidos/semana/"+DelAl+"/"+Datos.DNI+"/"+ Pos + "-"+ getFecha(Pos)+"/");
                 Log.d("Mensaje/Fecha",getFecha(Pos));
                 APedir aPedir = new APedir();
                 String sel = "";
@@ -289,6 +296,32 @@ public class Pedidos extends AppCompatActivity {
         /*Datos.Usuario = "";
         Datos.Conectado = false;
         finish();*/
+    }
+    public void colocarImagen(){
+        String cadena = txtDesc.getText().toString();
+        cadena = cadena.toLowerCase();
+        if(cadena.contains("carne")){
+            imagen.setImageResource(R.drawable.carne);
+        } else if (cadena.contains("ravioles")) {
+            imagen.setImageResource(R.drawable.ravioles);
+
+        } else if (cadena.contains("pizza")) {
+            imagen.setImageResource(R.drawable.pizza);
+
+        } else if (cadena.contains("lasagna")) {
+            imagen.setImageResource(R.drawable.lasagna);
+
+
+        } else if (cadena.contains("empanadas")) {
+            imagen.setImageResource(R.drawable.empanadas);
+
+        }else if(cadena.contains("hamburgesas")){
+            imagen.setImageResource(R.drawable.hamburgesa);
+        } else if (cadena.contains("ensalada")) {
+            imagen.setImageResource(R.drawable.ensalada);
+        } else{
+            imagen.setImageResource(R.drawable.comida1);
+        }
     }
 
     public String getFecha(int pos){

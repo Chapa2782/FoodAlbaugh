@@ -21,32 +21,37 @@
         android:id="@+id/txtSemana"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/btnModicar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
+            android:text="Atras, Modificar"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnOK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="15dp"
+            android:backgroundTint="@color/verde"
+            android:text="Ok, Cerrar"
+            android:textSize="20dp" />
+    </LinearLayout>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ListaPedidos"></ListView>
-    </LinearLayout>
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Atras, Modificar"
-        android:textSize="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/btnModicar"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ok, Cerrar"
-        android:textSize="25dp"
-        android:backgroundTint="@color/verde"
-        android:layout_gravity="right"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/btnOK"/>
+
 
 </LinearLayout>
