@@ -7,6 +7,7 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 
 public class vistaPedido extends AppCompatActivity {
     Button btnModicar,btnOK;
+    TextView txtSemana;
     ListView Lista;
     FirebaseDatabase database;
     DatabaseReference ref;
@@ -42,6 +44,7 @@ public class vistaPedido extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        txtSemana = findViewById(R.id.txtSemana);
         btnModicar = findViewById(R.id.btnModicar);
         btnOK = findViewById(R.id.btnOK);
         Lista = findViewById(R.id.ListaPedidos);
@@ -50,8 +53,12 @@ public class vistaPedido extends AppCompatActivity {
         Lista.setAdapter(adapter);
 
         database = FirebaseDatabase.getInstance();
+        String DNIRef = String.valueOf(Datos.DNI);
+        String DelAl = Datos.DelAlFecha;
+        txtSemana.setText("Del " + DelAl);
 
-        ref = database.getReference("Pedidos/semana/14-06-24 al 20-06-24/28355727/");
+
+        ref = database.getReference("Pedidos/semana/"+DelAl+"/"+DNIRef+"/");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

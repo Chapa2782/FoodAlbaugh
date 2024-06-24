@@ -38,7 +38,7 @@ public class Pedidos extends AppCompatActivity {
     Button btnAtras,btnSiguiente,btnPedir,btnFinalizar;
     DatabaseReference ref,refOp1,refOp2,refOp3,refInicio,refFinal;
     FirebaseDatabase database;
-    String vInicio,vFinal;
+    String vInicio,vFinal,DelAl;
     String valor = "";
     String Desc1,Desc2,Desc3 = "";
     int Pos = 1;
@@ -96,6 +96,9 @@ public class Pedidos extends AppCompatActivity {
                 vFinal = snapshot.getValue().toString();
                 txtSemana.setText("Semana del " + vInicio + " al " + vFinal);
                 txtDia.setText(getFecha(Pos));
+                DelAl = vInicio + " al " + vFinal;
+                DelAl = DelAl.replaceAll("/","-");
+                Datos.DelAlFecha = DelAl;
 
             }
 
@@ -247,9 +250,8 @@ public class Pedidos extends AppCompatActivity {
         btnPedir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String DelAl = vInicio + " al " + vFinal;
-                DelAl = DelAl.replaceAll("/","-");
-                ref = database.getReference("Pedidos/semana/"+DelAl+"/"+Datos.DNI+"/dia"+Pos+"/");
+                ref = database.getReference("Pedidos/semana/"+DelAl+"/"+Datos.DNI+"/"+getFecha(Pos)+"/");
+                Log.d("Mensaje/Fecha",getFecha(Pos));
                 APedir aPedir = new APedir();
                 String sel = "";
                 if(Op1.isChecked()){
@@ -312,7 +314,7 @@ public class Pedidos extends AppCompatActivity {
             int day = calendar.get(Calendar.DAY_OF_MONTH);
             int month = calendar.get(Calendar.MONTH) + 1; // Sumar 1 porque Enero es 0
             int year = calendar.get(Calendar.YEAR);
-            Fecha = dayOfWeek +" "+ day+"/"+month+"/"+ year;
+            Fecha = dayOfWeek +" "+ day+"-"+month+"-"+ year;
 
 
         } catch (ParseException e) {
